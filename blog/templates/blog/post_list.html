@@ -1,27 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Blog by Siglok</title>
-	</head>
-	<body>
-		<div>
-	    	<h1><a href="#">Django Siglok's Blog</a></h1>
-	   </div>
 
-	    
-		{%for post in posts%}
-	    <div>
-	    	<!-- llamar una variable de django doble {} -->
-	    	<p>Published:{{post.published_date}}</p>
-	    	<h1><a href="#">{{post.title}}</a></h1>
-			<p>{{post.text|linebreaksbr}}</p> <!-- linebreak cada salto de linea lo convierte en parrafo -->
+{% extends 'blog/base.html' %}
+
+
+{%block content%}
+	{% for post in posts %}
+	    <div class="post">
+	        <div class="date">
+	            {{ post.published_date }}
+	        </div>
+	        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+	        <p>{{ post.text|linebreaksbr }}</p>
 	    </div>
-	    {%endfor%}
-	    	
-	   
-	    <div>
-	    	
-	    </div>
-	</body>
-</html>
+	{% endfor %}
+{%endblock%}
