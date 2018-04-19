@@ -54,9 +54,9 @@ def post_edit(request, pk):
             if form.is_valid():
                 post = form.save(commit=False)
                 if not hasattr(request, 'user'):
-                post.author="siglok"
-            else:
-                post.author = request.user  #agregamos autor
+                    post.author="siglok"
+                else:
+                    post.author = request.user  #agregamos autor
                 post.save()
                 return redirect('post_detail', pk=post.pk)
         else:
