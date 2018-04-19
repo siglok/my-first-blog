@@ -34,10 +34,7 @@ def post_new(request):
         form = PostForm(request.POST) #construir el postform con los datos del formulario
         if form.is_valid(): #si el formulario se llenó correcatamente
             post = form.save(commit=False) #salva pero aun no envies, falta agregar autor
-            if not hasattr(request, 'user'):
-                post.author="siglok"
-            else:
-                post.author = request.user  #agregamos autor
+            post.author = request.user  #agregamos autor
             post.published_date = timezone.now() #agregamos la hora en que se está publicando
             post.save() #ahora si guardamos
             return redirect('post_detail', pk=post.pk) #vuelvenos a mandar a la pagina del formulario
@@ -53,10 +50,7 @@ def post_edit(request, pk):
             form = PostForm(request.POST, instance=post)
             if form.is_valid():
                 post = form.save(commit=False)
-                if not hasattr(request, 'user'):
-                    post.author="siglok"
-                else:
-                    post.author = request.user  #agregamos autor
+                post.author = request.user  #agregamos autor
                 post.save()
                 return redirect('post_detail', pk=post.pk)
         else:
